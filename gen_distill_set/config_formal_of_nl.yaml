@@ -1,0 +1,10 @@
+batch_size: 20
+before_example: "\nNatural language version:\n"
+after_example: "\nTranslate the natural language version to a Lean mathlib version:\n\""
+in_key: "nl_statement"
+out_key: "formal_statement"
+save_path: "formal_of_proofwiki.jsonl"
+few_shot_prompt_path: "formal_of_proofwiki_prompt.txt"
+data_path: "make_proofwiki/proofwiki.jsonl"
+stop: ":="
+

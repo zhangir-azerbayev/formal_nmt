@@ -1,0 +1,10 @@
+batch_size: 20
+before_example: "\nLean mathlib version:\n"
+after_example: "\nTranslate the Lean mathlib version to a natural langauge version:\n\""
+in_key: "formal_statement"
+out_key: "nl_statement"
+save_path: "nl_of_mathlib.jsonl"
+few_shot_prompt_path: "nl_of_mathlib_prompt.txt"
+data_path: "make_mathlib/mathlib.jsonl"
+stop: "\""
+
