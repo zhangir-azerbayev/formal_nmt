@@ -38,26 +38,27 @@ def main():
     BEFORE_EXAMPLE = cfg["before_example"]
     AFTER_EXAMPLE = cfg["after_example"]
     IN_KEY = cfg["in_key"]
-    OUT_KEY = cfg["nl_statement"]
+    OUT_KEY = cfg["out_key"]
     save_path = cfg["save_path"]
     if os.path.isfile(save_path): 
         raise OSError("save_path already exists")
     few_shot_prompt_path = cfg["few_shot_prompt_path"]
     data_path = cfg["data_path"]
     STOP = cfg["stop"]
+    max_tokens = cfg["max_tokens"]
 
     with open(few_shot_prompt_path) as f: 
         FEW_SHOT_PROMPT = f.read()
 
-    with open("docgen_export_full_parsed.jsonl") as f:
+    with open(data_path) as f:
         data = ndjson.load(f)
 
     dataloader = batch_loader(data, BATCH_SIZE)
 
     for batch in tqdm(dataloader): 
-        prompts = [FEW_SHOT_PROMPT + BEFORE_EXAMPLE + x[in_key] + AFTER_EXAMPLE for x in batch]
+        prompts = [FEW_SHOT_PROMPT + BEFORE_EXAMPLE + x[IN_KEY] + AFTER_EXAMPLE for x in batch]
 
-        outs = call_api(prompts, stop=STOP)
+        outs = call_api(prompts, stop=STOP, max_tokens=max_tokens)
 
         finish_reasons = [x["finish_reason"] 
                 for x in outs["choices"]]
@@ -68,7 +69,7 @@ def main():
         text_outs = [x["text"] for x in outs["choices"]]
 
         for text_out, step in zip(text_outs, batch):
-            step[out_key] = text_out
+            step[OUT_KEY] = text_out
 
             with open(save_path, "a+") as f: 
                 record = json.dumps(step)
