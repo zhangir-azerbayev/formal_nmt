@@ -1,2 +1,1 @@
-Proofwiki json is downloaded from [here](https://zenodo.org/record/4902289/files/naturalproofs_proofwiki.json?download=1), courtesy of Sean Welleck. Thank you Sean!
-
+These scripts are modelled from Sean Welleck's, which can be found [here](https://github.com/wellecks/naturalproofs/blob/master/notebooks/parse_proofwiki.ipynb). Thank you Sean!
